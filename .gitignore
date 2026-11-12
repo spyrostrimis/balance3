@@ -1,0 +1,38 @@
+# Godot 4 generated cache (imported assets, shader cache, editor state).
+# Source asset *.import files and script *.gd.uid files are NOT ignored:
+# they must be committed.
+.godot/
+
+# Generated Android build template
+/android/
+
+# Exported builds
+/build/
+/builds/
+/export/
+*.pck
+*.apk
+*.aab
+
+# Local secrets and machine-specific overrides
+.env
+.env.*
+*.keystore
+*.jks
+override.cfg
+
+# Logs and temporary files
+*.log
+*.tmp
+*~
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+.claude/settings.local.json
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
