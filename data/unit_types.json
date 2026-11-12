@@ -1,0 +1,4 @@
+{
+	"trooper": { "name": "Trooper", "commander": false, "move_speed": 3.0 },
+	"commander": { "name": "Field Commander", "commander": true, "move_speed": 3.0 }
+}

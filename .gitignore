@@ -6,6 +6,9 @@
 # Generated Android build template
 /android/
 
+# Output of tools/capture_demo.gd
+/screenshots/
+
 # Exported builds
 /build/
 /builds/

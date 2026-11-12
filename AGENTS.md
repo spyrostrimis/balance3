@@ -21,7 +21,9 @@ imports it.
   or import anything from `D:\Games\Dunes\` (external visual references for the
   designer) or from any other game.
 - The repository root is the Godot project root. Do not nest a project folder.
-- Do not push, force-push or rewrite history unless the human asks.
+- Commit and push to `main` freely once `tools\check.ps1` passes (the human's
+  standing instruction; it overrides "do not push" in older `PROMPTS/` files).
+  Never force-push or rewrite pushed history unless the human asks.
 - No plugins, C# or new dependencies without a stated need and human approval.
 - Do not upgrade or change the Godot version silently.
 
@@ -35,6 +37,7 @@ powershell -ExecutionPolicy Bypass -File tools\check.ps1      # all checks
 & $godot --headless --path . res://tests/test_runner.tscn     # tests only
 & $godot --headless --path . --quit-after 120                 # startup check
 & $godot --path .                                             # run the game
+& $godot --path . --script res://tools/capture_demo.gd        # screenshots (needs a real window)
 ```
 
 Run `tools\check.ps1` before every commit. Report the commands you ran and their
@@ -50,11 +53,17 @@ real output; never claim a check passed without running it. Treat any `ERROR` or
 - Prefer built-in Godot nodes and features over custom frameworks. Add an
   abstraction when a second real use appears, not before.
 - Keep scenes small and readable; text formats only (`.tscn`, `.tres`).
-- Gameplay values (unit stats, costs, ability numbers) go in resource files
-  under `data/`, not in script constants.
+- Gameplay values (unit stats, costs, ability numbers) and maps go in JSON
+  files under `data/` (see `data/README.md`), not in script constants.
 - Keep three scales separate: **logical grid cells** (`GridCoords.CELL_SIZE`,
-  world units), **artwork pixel dimensions**, and **camera zoom**. Gameplay code
-  works in cells and world units and never depends on sprite size or zoom.
+  world units), **artwork pixel dimensions** and **camera zoom** (both in
+  `ViewConfig`). Gameplay code works in cells and world units and never depends
+  on sprite size or zoom.
+- Layering: `scripts/sim/` holds rules and must not use nodes, input or
+  rendering, so it can be tested headless. `scripts/view/` draws and reads the
+  simulation but never changes it. `scripts/main.gd` turns input into
+  simulation calls. The simulation advances only in `BattleSim.tick()`, called
+  from `_physics_process` (fixed 60 Hz).
 
 ## Files and Git
 
@@ -71,5 +80,8 @@ real output; never claim a check passed without running it. Treat any `ERROR` or
 - Tests are `tests/test_*.gd` scripts that `extends "res://tests/test_case.gd"`.
   Every method named `test_*` is run; use `check()` / `check_eq()` to assert.
   `tree` gives access to the `SceneTree` for tests that add nodes or await frames.
-- Add tests for rules and logic (grid math, pathfinding, orders). Verify visuals
-  by running the game.
+- Add tests for rules and logic (grid math, pathfinding, orders). Scene-level
+  tests can feed synthetic input events to the handlers, as
+  `tests/test_main_scene.gd` does.
+- Headless runs cannot render. Verify visuals with `tools/capture_demo.gd` or
+  by running the game, and say which you did.

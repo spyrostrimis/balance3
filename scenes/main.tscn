@@ -1,19 +1,76 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/view/battle_overlay.gd" id="2_overlay"]
+[ext_resource type="Script" path="res://scripts/view/battle_camera.gd" id="3_camera"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
 
+[node name="Terrain" type="TileMapLayer" parent="."]
+
+[node name="Units" type="Node2D" parent="."]
+
+[node name="Overlay" type="Node2D" parent="."]
+script = ExtResource("2_overlay")
+
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+script = ExtResource("3_camera")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="InfoLabel" type="Label" parent="UI"]
+[node name="StatusPanel" type="PanelContainer" parent="UI"]
 offset_left = 24.0
-offset_top = 40.0
-offset_right = 1200.0
-offset_bottom = 120.0
-theme_override_font_sizes/font_size = 28
+offset_top = 24.0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="Margin" type="MarginContainer" parent="UI/StatusPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="StatusLabel" type="Label" parent="UI/StatusPanel/Margin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "Balance"
+
+[node name="HelpPanel" type="PanelContainer" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = -24.0
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="UI/HelpPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HelpLabel" type="Label" parent="UI/HelpPanel/Margin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Controls"
+
+[node name="MessageLabel" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_top = 32.0
+offset_right = 480.0
+offset_bottom = 76.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1

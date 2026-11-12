@@ -3,8 +3,27 @@
 An original, single-player-first 2D real-time strategy game built with
 Godot 4.7.2 and GDScript.
 
-**Status:** P000 — project foundation. The project boots into a placeholder
-battlefield grid; there is no gameplay yet. See [docs/ROADMAP.md](docs/ROADMAP.md).
+**Status:** P001 — tactical movement sandbox. Four Blue units can be selected
+and ordered around a small woodland map with a central Orichalcum formation;
+four Red units stand still and block movement. There is no combat yet. See
+[docs/ROADMAP.md](docs/ROADMAP.md).
+
+## Controls
+
+| Input | Action |
+| --- | --- |
+| Left click | Select one Blue unit (click empty ground to clear) |
+| Left drag | Box-select Blue units |
+| Shift + click / drag | Add to the selection (Shift-click a selected unit to remove it) |
+| Right click | Move the selected units; each gets its own cell at or near the target |
+| S | Stop the selected units |
+| Esc | Clear the selection |
+| W A S D / arrow keys | Pan the camera (S pans only when nothing is selected) |
+| Mouse at window edge | Pan the camera |
+| Mouse wheel | Zoom towards the cursor |
+
+A red cross and a short message appear if the target is impassable, outside
+the map or has no route (try the walled-off clearing south of the deposit).
 
 ## Requirements (Windows)
 
@@ -66,14 +85,27 @@ error:
 
 Tests live in `tests/test_*.gd`; see [AGENTS.md](AGENTS.md) for how to add one.
 
+## Capture screenshots
+
+```powershell
+& 'C:\Godot\Godot_v4.7.2-stable_win64_console.exe' --path . --script res://tools/capture_demo.gd
+```
+
+Plays a short scripted demo in a real window (select, move, blocked order,
+zoom out) and saves PNGs to `screenshots/`, which Git ignores. Add
+`--resolution 1920x1080` to test another window size.
+
 ## Layout
 
 | Path | Contents |
 | --- | --- |
 | `project.godot` | Godot project settings (repository root is the project root) |
 | `scenes/` | Scene files (`.tscn`); `main.tscn` is the startup scene |
-| `scripts/` | GDScript source |
-| `data/` | Data-driven gameplay definitions (empty for now) |
+| `scripts/sim/` | Game rules with no scene dependencies: map, pathfinding, units, orders |
+| `scripts/input/` | Selection rules |
+| `scripts/view/` | Camera, unit and overlay drawing, placeholder art, scale settings |
+| `scripts/main.gd` | Connects the simulation, input and scene |
+| `data/` | Maps, terrain types and unit types as JSON |
 | `assets/` | Original or licensed art, audio and fonts (empty for now) |
 | `tests/` | Headless test runner and test scripts |
 | `tools/` | Developer scripts |

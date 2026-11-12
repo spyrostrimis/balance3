@@ -1,0 +1,41 @@
+{
+	"id": "first_claim_forest",
+	"name": "The First Claim - forest movement sandbox",
+	"player_faction": "blue",
+	"rows": [
+		"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+		"TT....TT..........TTT.........TT......TT",
+		"T......T...........T...................T",
+		"T..........TT...........TT.............T",
+		"T.........TTTT..........TTT.....TT.....T",
+		"T..........TT....RR......T......TTT....T",
+		"T................R...............T.....T",
+		"T.....TT....................RR.........T",
+		"T.....TTT......,,,,,,,,,,...RR.........T",
+		"T......T......,,..RRR...,,.............T",
+		"T.............,..ROOOR...,.............T",
+		"T,,,,,,,,,,,,,,..ROOOR...,,,,,,,,,,,,,,T",
+		"T.............,..RROOR...,.............T",
+		"T.............,,...RR...,,.............T",
+		"T......TT......,,,,,,,,,,......TT......T",
+		"T.....TTTT....................TTTT.....T",
+		"T......TT........TTTTT.........TT......T",
+		"T................T...T.................T",
+		"T....RR..........T...T........R........T",
+		"T....RR..........TTTTT.......RRR.......T",
+		"T.............................R........T",
+		"T.......TT...............TT............T",
+		"TT.....TTTT.....TT......TTTT.........TTT",
+		"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+	],
+	"units": [
+		{ "faction": "blue", "type": "commander", "cell": [4, 11] },
+		{ "faction": "blue", "type": "trooper", "cell": [3, 9] },
+		{ "faction": "blue", "type": "trooper", "cell": [2, 11] },
+		{ "faction": "blue", "type": "trooper", "cell": [3, 13] },
+		{ "faction": "red", "type": "commander", "cell": [35, 11] },
+		{ "faction": "red", "type": "trooper", "cell": [36, 9] },
+		{ "faction": "red", "type": "trooper", "cell": [37, 11] },
+		{ "faction": "red", "type": "trooper", "cell": [36, 13] }
+	]
+}

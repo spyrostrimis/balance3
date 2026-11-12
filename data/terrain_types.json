@@ -1,0 +1,7 @@
+{
+	"grass": { "symbol": ".", "walkable": true },
+	"dirt": { "symbol": ",", "walkable": true },
+	"tree": { "symbol": "T", "walkable": false },
+	"rock": { "symbol": "R", "walkable": false },
+	"orichalcum": { "symbol": "O", "walkable": false }
+}
