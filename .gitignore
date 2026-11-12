@@ -9,6 +9,9 @@
 # Output of tools/capture_demo.gd
 /screenshots/
 
+# Intermediate Blender renders from tools/build_art.ps1
+/art_build/
+
 # Exported builds
 /build/
 /builds/

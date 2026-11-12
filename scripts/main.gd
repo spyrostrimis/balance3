@@ -27,8 +27,9 @@ var _drag_start_screen := Vector2.ZERO
 var _drag_start_world := Vector2.ZERO
 var _message_time_left := 0.0
 
-@onready var _terrain: TileMapLayer = $Terrain
-@onready var _units_root: Node2D = $Units
+@onready var _ground: GroundView = $Ground
+## Y-sorted parent of scenery and units, so nearer things draw over farther ones.
+@onready var _world: Node2D = $World
 @onready var _overlay: BattleOverlay = $Overlay
 @onready var _camera: BattleCamera = $Camera2D
 @onready var _status_label: Label = $UI/StatusPanel/Margin/StatusLabel
@@ -56,7 +57,8 @@ func _ready() -> void:
 	player_faction = map_data.get("player_faction", "blue")
 	var battle_map := BattleMap.from_rows(map_data["rows"], terrain_types)
 	sim = BattleSim.new(battle_map)
-	_build_terrain(battle_map)
+	_ground.setup(battle_map)
+	BattlefieldProps.populate(_world, battle_map)
 
 	var camera_start := battle_map.world_rect().get_center()
 	for entry: Dictionary in map_data["units"]:
@@ -64,7 +66,7 @@ func _ready() -> void:
 		var unit := sim.add_unit(entry["faction"], entry["type"], unit_types[entry["type"]], cell)
 		var view := UnitView.new()
 		view.setup(unit)
-		_units_root.add_child(view)
+		_world.add_child(view)
 		_unit_views[unit.id] = view
 		if unit.faction == player_faction and unit.is_commander:
 			camera_start = unit.world_position()
@@ -125,16 +127,6 @@ func _input(event: InputEvent) -> void:
 			selection.click(unit.id if unit != null else -1, event.shift_pressed)
 		_dragging = false
 		_overlay.selection_rect = Rect2()
-
-
-func _build_terrain(battle_map: BattleMap) -> void:
-	_terrain.tile_set = PlaceholderTiles.build_tile_set()
-	_terrain.scale = Vector2.ONE * ViewConfig.art_scale()
-	for y in range(battle_map.size.y):
-		for x in range(battle_map.size.x):
-			var cell := Vector2i(x, y)
-			var atlas_coords := PlaceholderTiles.atlas_coords(battle_map.terrain_at(cell), cell)
-			_terrain.set_cell(cell, PlaceholderTiles.ATLAS_SOURCE_ID, atlas_coords)
 
 
 func _order_move(world_position: Vector2) -> void:

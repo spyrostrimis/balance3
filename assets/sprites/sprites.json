@@ -1,0 +1,86 @@
+{
+	"blue_commander": {
+		"file": "blue_commander.png",
+		"frames": 8,
+		"frame_width": 320,
+		"frame_height": 320,
+		"anchor": [
+			160.0,
+			192.0
+		],
+		"px_per_cell": 128,
+		"directional": true
+	},
+	"blue_trooper": {
+		"file": "blue_trooper.png",
+		"frames": 8,
+		"frame_width": 256,
+		"frame_height": 256,
+		"anchor": [
+			128.0,
+			156.8
+		],
+		"px_per_cell": 128,
+		"directional": true
+	},
+	"orichalcum": {
+		"file": "orichalcum.png",
+		"frames": 4,
+		"frame_width": 256,
+		"frame_height": 256,
+		"anchor": [
+			128.0,
+			147.2
+		],
+		"px_per_cell": 128,
+		"directional": false
+	},
+	"red_commander": {
+		"file": "red_commander.png",
+		"frames": 8,
+		"frame_width": 320,
+		"frame_height": 320,
+		"anchor": [
+			160.0,
+			192.0
+		],
+		"px_per_cell": 128,
+		"directional": true
+	},
+	"red_trooper": {
+		"file": "red_trooper.png",
+		"frames": 8,
+		"frame_width": 256,
+		"frame_height": 256,
+		"anchor": [
+			128.0,
+			156.8
+		],
+		"px_per_cell": 128,
+		"directional": true
+	},
+	"rock": {
+		"file": "rock.png",
+		"frames": 4,
+		"frame_width": 256,
+		"frame_height": 256,
+		"anchor": [
+			128.0,
+			137.6
+		],
+		"px_per_cell": 128,
+		"directional": false
+	},
+	"tree": {
+		"file": "tree.png",
+		"frames": 6,
+		"frame_width": 320,
+		"frame_height": 320,
+		"anchor": [
+			160.0,
+			198.4
+		],
+		"px_per_cell": 128,
+		"directional": false
+	}
+}

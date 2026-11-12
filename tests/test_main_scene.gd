@@ -76,12 +76,27 @@ func test_main_scene_builds_the_battlefield() -> void:
 	var sim: BattleSim = main.sim
 	check(sim != null, "simulation was not created")
 	if sim != null:
-		var terrain := main.get_node("Terrain") as TileMapLayer
-		check_eq(terrain.get_used_cells().size(), sim.map.size.x * sim.map.size.y, "terrain tiles")
-		check_eq(terrain.scale * float(ViewConfig.TERRAIN_ART_PX), Vector2.ONE * GridCoords.CELL_SIZE,
-			"one terrain tile covers one logical cell")
+		var ground := main.get_node("Ground") as Sprite2D
+		check(ground.texture != null and ground.material is ShaderMaterial, "ground was not set up")
+		if ground.texture != null:
+			check_eq(ground.texture.get_size() * ground.scale, sim.map.world_rect().size, "ground covers the map")
 		check_eq(sim.units.size(), 8, "units in the simulation")
-		check_eq(main.get_node("Units").get_child_count(), 8, "unit views")
+
+		var unit_views := 0
+		var props := 0
+		for child in main.get_node("World").get_children():
+			if child is UnitView:
+				unit_views += 1
+				check_eq(child.position, child.unit.world_position(), "unit view position")
+			else:
+				props += 1
+		var scenery_cells := 0
+		for y in range(sim.map.size.y):
+			for x in range(sim.map.size.x):
+				if BattlefieldProps.SPRITE_BY_TERRAIN.has(sim.map.terrain_at(Vector2i(x, y))):
+					scenery_cells += 1
+		check_eq(unit_views, 8, "unit views")
+		check_eq(props, scenery_cells, "one scenery sprite per tree, rock and Orichalcum cell")
 		var camera := main.get_node("Camera2D") as Camera2D
 		check(sim.map.world_rect().has_point(camera.position), "camera starts outside the map")
 		var status := main.get_node("UI/StatusPanel/Margin/StatusLabel") as Label

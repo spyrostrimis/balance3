@@ -38,6 +38,7 @@ powershell -ExecutionPolicy Bypass -File tools\check.ps1      # all checks
 & $godot --headless --path . --quit-after 120                 # startup check
 & $godot --path .                                             # run the game
 & $godot --path . --script res://tools/capture_demo.gd        # screenshots (needs a real window)
+powershell -ExecutionPolicy Bypass -File tools\build_art.ps1  # regenerate all art (Blender + Pillow)
 ```
 
 Run `tools\check.ps1` before every commit. Report the commands you ran and their
@@ -64,6 +65,24 @@ real output; never claim a check passed without running it. Treat any `ERROR` or
   simulation but never changes it. `scripts/main.gd` turns input into
   simulation calls. The simulation advances only in `BattleSim.tick()`, called
   from `_physics_process` (fixed 60 Hz).
+
+## Art
+
+- `docs/VISUAL_DIRECTION.md` is the brief. Visual quality is a first-class
+  requirement, not polish for later: after any change that affects what is on
+  screen, capture screenshots and look at them before reporting.
+- All current art is generated: `tools/art/make_ground_textures.py` (Pillow)
+  for the ground, `tools/art/render_sprites.py` (Blender) for models, then
+  `tools/art/pack_sprites.py` for sheets. Change the scripts and run
+  `tools\build_art.ps1`; do not hand-edit files under `assets/`.
+- Every sprite comes from one rig in `render_sprites.py` — camera 60° above
+  the ground looking north, sun in the top-left, 128 source pixels per cell —
+  so the whole game shares one angle and one light. Keep new art on that rig.
+- Models face +X; unit sheets hold eight facings clockwise from east.
+  `assets/sprites/sprites.json` tells the game each sheet's frame size, anchor
+  and pixels per cell, so the game never hard-codes art dimensions.
+- Factions must differ by silhouette as well as colour (Blue: rounded shapes;
+  Red: slabs, crests and hard edges).
 
 ## Files and Git
 
